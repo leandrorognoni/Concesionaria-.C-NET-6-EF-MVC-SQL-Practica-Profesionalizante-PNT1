@@ -1,0 +1,76 @@
+﻿@model IEnumerable<Concesionaria.Models.Plan>
+
+@{
+    ViewData["Title"] = "Planes";
+}
+
+<h1>Planes</h1>
+
+<p>
+    <a asp-action="Create">Crear nuevo plan</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoAbonado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.MontoTotal)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.CuotasRestantes)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.fueAprobado)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PlazoEntrega)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cliente)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Vehiculo)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoAbonado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.MontoTotal)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.CuotasRestantes)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.fueAprobado)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PlazoEntrega)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Cliente.Apellido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Vehiculo.Marca)
+                @Html.DisplayFor(modelItem => item.Vehiculo.Modelo)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.ClienteId">Edit</a> |
+                <a asp-action="Details" asp-route-id="@item.ClienteId">Details</a> |
+                <a asp-action="Delete" asp-route-id="@item.ClienteId">Delete</a>
+            </td>
+        </tr>
+
+ }
+    </tbody>
+</table>
+
+
+      <a class="nav-link " style="margin-top:50px " asp-area="" asp-controller="Vehiculo" asp-action="Index">Volver</a>

@@ -1,0 +1,50 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+
+
+body {
+  margin-bottom: 60px;
+}
+
+#separacion1{ 
+    padding-right: 20px;
+}
+
+.sepLetras1{
+    letter-spacing:12px;
+    font-weight:bolder;
+}
+.sepLetras2 {
+    letter-spacing: 4px;
+   
+}
+
+ .negrita{
+     font-weight:bold;
+ }
+
+.boton {
+    display: block;
+    width: 195px;
+    height: 35px;
+    background: #464646;
+    padding: 6px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+}

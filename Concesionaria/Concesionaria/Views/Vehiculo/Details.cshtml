@@ -1,0 +1,68 @@
+﻿@model Concesionaria.Models.Vehiculo
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Detalles</h1>
+
+<div>
+    <h4>Vehiculo</h4>
+    <hr />
+    <dl class="row">
+        <div class="col-lg-4" >  
+         <dt >
+            @Html.DisplayNameFor(model => model.Marca)
+        </dt>
+        <dd >
+            @Html.DisplayFor(model => model.Marca)
+        </dd>
+        <dt >
+            @Html.DisplayNameFor(model => model.Modelo)
+        </dt>
+        <dd >
+            @Html.DisplayFor(model => model.Modelo)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.PrecioVenta)
+        </dt>
+        <dd>
+           $@Html.DisplayFor(model => model.PrecioVenta)
+        </dd>
+        <dt>
+            @Html.DisplayNameFor(model => model.Color)
+        </dt>
+        <dd >
+            @Html.DisplayFor(model => model.Color)
+        </dd>
+        <dt >
+            @Html.DisplayNameFor(model => model.Año)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.Año)
+        </dd>
+        <dt >
+            @Html.DisplayNameFor(model => model.Kilometros)
+        </dt>
+        <dd >
+            @Html.DisplayFor(model => model.Kilometros)
+        </dd>
+        <dt >
+            @Html.DisplayNameFor(model => model.TipoAuto)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TipoAuto)
+        </dd>
+          </div>
+       <div class="col-lg-6" >  
+            <img src=" @Html.DisplayFor(model => model.RutaImagen)" alt="@Html.DisplayFor(model => model.Modelo)" width=640px height=450px > 
+       </div>
+
+    </dl>
+
+</div>
+<div>
+    <a  asp-action="VehiculosVenta">Volver</a>
+</div>
+
+

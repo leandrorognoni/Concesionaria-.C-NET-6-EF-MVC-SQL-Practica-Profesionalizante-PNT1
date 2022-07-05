@@ -1,0 +1,62 @@
+﻿@model Concesionaria.Models.Plan
+
+@{
+    ViewData["Title"] = "Selección de plan";
+}
+
+<h1>Seleccione la financiación</h1>
+
+<h4>Plan de pagos</h4>
+<hr />
+<div class="row">
+    <div class="col-md-4">
+        <form asp-action="Create">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <div class="form-group">
+                <label asp-for="ClienteId" class="control-label"></label>
+                <select asp-for="ClienteId" class ="form-control" asp-items="ViewBag.ClienteId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="VehiculoId" class="control-label"></label>
+                <select asp-for="VehiculoId" class ="form-control" asp-items="ViewBag.VehiculoId"></select>
+            </div>
+            <div class="form-group">
+                <label asp-for="MontoAbonado" class="control-label"></label>
+                <input asp-for="MontoAbonado" class="form-control" />
+                <span asp-validation-for="MontoAbonado" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="MontoTotal" class="control-label"></label>
+                <input asp-for="MontoTotal" class="form-control" />
+                <span asp-validation-for="MontoTotal" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="CuotasRestantes" class="control-label"></label>
+                <input asp-for="CuotasRestantes" class="form-control" />
+                <span asp-validation-for="CuotasRestantes" class="text-danger"></span>
+            </div>
+            <div class="form-group form-check">
+                <label class="form-check-label">
+                    <input class="form-check-input" asp-for="fueAprobado" /> @Html.DisplayNameFor(model => model.fueAprobado)
+                </label>
+            </div>
+            <div class="form-group">
+               <select asp-for="PlazoEntrega" class="form-control" asp-items="Html.GetEnumSelectList<Plazo>()">
+               <option selected="selected" value="">Seleccione tipo de entrega</option>
+               </select>
+
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

@@ -1,0 +1,104 @@
+﻿@model IEnumerable<Concesionaria.Models.Vehiculo>
+
+@{
+    ViewData["Title"] = "Administracion  ";
+}
+
+<h1 class="sepLetras2">Administración Concesionaria</h1>
+
+<hr>
+<div > 
+   <table> 
+        <tr> 
+            <td id="separacion1" >  
+               <a  class="text-dark" asp-action="Create">Agregar nuevo vehiculo</a>
+            </td>
+             <td id="separacion1" >
+              <a  class="text-dark" asp-area="" asp-controller="Factura" asp-action="Create">Generar Factura</a>
+            </td>   
+            <td id="separacion1"> 
+              <a  class="text-dark" asp-area="" asp-controller="Factura" asp-action="Index">Gestión Facturas</a>
+            </td>   
+         
+            <td id="separacion1"> 
+              <a   class="text-dark" asp-area="" asp-controller="Cliente" asp-action="Index">Administrar Clientes</a>
+            </td>   
+            <td id="separacion1"> 
+              <a   class="text-dark" asp-area="" asp-controller="Plan" asp-action="Index">Administrar Planes</a>
+            </td>   
+        </tr>
+     
+
+   </table>
+</div>
+<hr>
+<hr>
+        
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Marca)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Modelo)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.PrecioVenta)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Color)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Año)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Kilometros)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.FueVendido)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.TipoAuto)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+             <td>
+                @Html.DisplayFor(modelItem => item.Marca)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Modelo)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.PrecioVenta)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Color)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Año)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Kilometros)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.FueVendido)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.TipoAuto)
+            </td>
+            <td>
+                <a asp-action="Edit" asp-route-id="@item.Id">Editar</a> |
+                <a asp-action="Delete" asp-route-id="@item.Id">Borrar</a>
+            </td>
+        </tr>
+        } 
+                 
+
+    
+    </tbody>
+</table>
