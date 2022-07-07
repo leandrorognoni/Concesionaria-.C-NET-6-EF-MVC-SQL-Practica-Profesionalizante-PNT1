@@ -122,7 +122,10 @@ namespace Concesionaria.Controllers
                 cliente.Plan = plan;
                 plan.Vehiculo = cliente.Vehiculo;
                 plan.Cliente = cliente;
-            
+
+                //Se vende el vehiculo 
+                Vehiculo vehiculo  = _context.vehiculos.Find(plan.VehiculoId);
+                vehiculo.FueVendido = true;
 
                 _context.Add(plan);
                  _context.SaveChanges();

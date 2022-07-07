@@ -82,21 +82,19 @@ namespace Concesionaria.Controllers
             var i = 1;
             Boolean existe = false;
 
-            while (i < _context.vendedores.Count() && !existe)
-            {
-                var vendedor = _context.vendedores.Find(i);
-
-
-                if (vendedor.Usuario.Equals(usuario) && vendedor.Contraseña.Equals(contraseña))
+            var vendedorBuscado = _context.vendedores.FirstOrDefault(v => v.Usuario == usuario && v.Contraseña == contraseña);
+  
+           if (vendedorBuscado != null)
                 {
-                    existe = true;
-                }
-                else
-                {
-                    i++;
-                }
+                
+                        existe = true;
 
             }
+            else
+            {
+                ViewBag.mensajeError = " El usuario ingresado o contraseña no son correctos.";
+            }
+              
 
             if (existe)
             {
@@ -106,7 +104,7 @@ namespace Concesionaria.Controllers
             else
             { 
 
-            return RedirectToAction("Login", "Vendedor");
+            return View();
             }
 
         }
