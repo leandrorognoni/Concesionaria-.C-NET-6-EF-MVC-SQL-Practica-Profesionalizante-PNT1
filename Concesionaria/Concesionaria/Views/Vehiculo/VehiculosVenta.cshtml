@@ -21,8 +21,7 @@
              <div class="col " >
                       <hr> 
                      <center> <img  src=" @Html.DisplayFor(modelItem => item.RutaImagen)" alt="@Html.DisplayFor(modelItem => item.Modelo)" width=390px  height=250px > </center>
-                      
-                      
+                          
             </div>
             <hr>
          
@@ -91,11 +90,12 @@
           
         <div class="row">
            
-             <div class="col  " id="separacion1" style="font-size:30px;  " > 
+             <div class="col " id="separacion1" style="font-size:30px;  " > 
                $ @Html.DisplayFor(modelItem => item.PrecioVenta)   
             </div>
              <div class="col" style="margin-top:5px" > 
-                 <a class="boton" style="text-decoration:none"  asp-action="" >FINANCIACION</a> 
+                 <a class="boton" style="text-decoration:none" asp-controller="Cliente"  asp-action="Seleccion" asp-route-id="@item.Id" >FINANCIACION</a> 
+               
               </div>
         </div>
   

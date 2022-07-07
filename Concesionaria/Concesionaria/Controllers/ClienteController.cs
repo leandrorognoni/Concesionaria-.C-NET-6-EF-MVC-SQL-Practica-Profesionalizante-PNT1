@@ -46,33 +46,45 @@ namespace Concesionaria.Controllers
             {
                  cliente = _context.clientes.Find(i);
 
+                if(cliente != null)
+                {
+
                     if (cliente.Dni == dni && cliente.Contraseña.Equals(contraseña))
                     {
                         existe = true;
-                        TempData["id"] = cliente.Id;
 
                     }
                     else
                     {
                         i++;
                     }
-                       
 
-              
+
+                }
+                else
+                {
+                    i++;
+                }
+
             }
 
             if (existe)
             {
 
-                return RedirectToAction("Details", "Plan", new {cliente.Id});
 
-            }
+                return RedirectToAction("Details", "Plan", new {cliente.Id});
+             }
             else
             {
-                return RedirectToAction("Consulta", "Cliente");
+                ViewBag.Mensaje = "No fue encontrado el Dni o Contraseña";
+
+                return View();
             }
 
         }
+
+
+
 
         // GET: Cliente/Details/5
         public async Task<IActionResult> Details(int? id)
@@ -98,6 +110,74 @@ namespace Concesionaria.Controllers
             return View();
         }
 
+        //GET: Cliente/Seleccion
+
+        public IActionResult Seleccion(int? id)
+        {
+            TempData["idVehiculoSeleccionado"] = id; 
+            return View();
+        }
+
+        //POST: Cliente/Seleccion
+        [HttpPost]
+        public IActionResult Seleccion(int dni, String contraseña)
+        {
+            var i = 1;
+            var cliente = new Cliente();
+            Boolean existe = false;
+            var  idVehiculo =  TempData["idVehiculoSeleccionado"];
+
+            while (i <= _context.clientes.Count() && !existe)
+            {
+                cliente = _context.clientes.Find(i);
+
+                if (cliente != null)
+                {
+
+                    if (cliente.Dni == dni && cliente.Contraseña.Equals(contraseña))
+                    {
+                        existe = true;
+
+                    }
+                    else
+                    {
+                        i++;
+                    }
+
+
+                }
+                else
+                {
+                    i++;
+                }
+
+            }
+
+
+
+            if (existe && cliente.Plan == null)
+            {
+              
+                
+                var routeValues = new { ClienteId = cliente.Id, VehiculoId = idVehiculo, MontoAbonado = 12, MontoTotal = 14, CuotasRestantes = 2, fueAprobado = false, PlazoEntrega = Plazo.CUOTA_12 };
+                return  RedirectToAction("CreateSeleccion", "Plan", routeValues);
+            }
+            else if(!existe)
+            {
+                ViewBag.Mensaje = "No fue encontrado el Dni o Contraseña";
+
+                return View();
+            }
+            else
+            {
+                ViewBag.Mensaje = "El Dni Ingresado ya posee un plan de financiación";
+               
+
+            }
+
+            return View();
+        }
+
 
         // GET: Cliente/Create
         public IActionResult Create()
@@ -112,15 +192,24 @@ namespace Concesionaria.Controllers
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create([Bind("Id,Dni,Contraseña,Nombre,Apellido,Email")] Cliente cliente)
-        {
-            if (ModelState.IsValid)
+        { 
+            var buscadoPorDni = _context.clientes.Where(m => m.Dni == cliente.Dni);
+            Cliente clienteEncontrado = buscadoPorDni.FirstOrDefault();
+
+            if (ModelState.IsValid && clienteEncontrado==null)
             {
                 _context.Add(cliente);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(RegistroOk));
             }
+            else
+            {
+                ViewBag.MensajeInvalido = "Ya existe un cliente con ese DNI ";
+
+            }
             return View(cliente);
         }
+ 
 
         // GET: Cliente/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -203,6 +292,7 @@ namespace Concesionaria.Controllers
             var cliente = await _context.clientes.FindAsync(id);
             if (cliente != null)
             {
+
                 _context.clientes.Remove(cliente);
             }
             

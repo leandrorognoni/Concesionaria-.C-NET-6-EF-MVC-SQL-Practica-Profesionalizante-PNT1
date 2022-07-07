@@ -51,23 +51,8 @@ namespace Concesionaria.Controllers
             return View(vehiculo);
         }
 
-        // GET: Vehiculo/Financiacion
-        public async Task<IActionResult> Financiacion(int? id)
-        {
-            if (id == null || _context.vehiculos == null)
-            {
-                return NotFound();
-            }
+      
 
-            var vehiculo = await _context.vehiculos
-                .FirstOrDefaultAsync(m => m.Id == id);
-            if (vehiculo == null)
-            {
-                return NotFound();
-            }
-
-            return View(vehiculo);
-        }
 
         // GET: Vehiculo/Create
         public IActionResult Create()

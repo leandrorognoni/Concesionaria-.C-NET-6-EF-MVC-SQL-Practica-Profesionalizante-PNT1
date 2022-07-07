@@ -5,6 +5,8 @@ namespace Concesionaria.Models
     public class Plan
     {
 
+
+
         [Key]
         public int ClienteId { get; set; }
   
@@ -37,6 +39,9 @@ namespace Concesionaria.Models
 
          public Cliente? Cliente { get; set; }
          public Vehiculo? Vehiculo { get; set; }
+
+
+       
             
     }   
 }

@@ -80,6 +80,52 @@ namespace Concesionaria.Controllers
             ViewData["VehiculoId"] = new SelectList(_context.vehiculos, "Id", "Id", plan.VehiculoId);
             return View(plan);
         }
+        /*
+                [HttpPost]
+                [ValidateAntiForgeryToken]
+                public IActionResult Create(int id, int vehi, int monto, int total , int cuo, Boolean fue, Plazo plazo )
+                {
+
+
+                    return View( );
+                }
+        */
+     
+         public   IActionResult  CreateSeleccion([Bind("ClienteId,VehiculoId,MontoAbonado,MontoTotal,CuotasRestantes,fueAprobado,PlazoEntrega")] Plan plan)
+        {
+            plan.Cliente = _context.clientes.Find(plan.ClienteId);
+            plan.Vehiculo = _context.vehiculos.Find(plan.VehiculoId);
+            
+            Cliente cliente = _context.clientes.Find(plan.ClienteId);
+           
+            if (ModelState.IsValid)
+            {
+                //Si es valido, ademas se asigna el vehiculo del cliente y el plan al cliente
+                 cliente.Vehiculo = _context.vehiculos.Find(plan.VehiculoId);
+                 cliente.Plan = plan;
+
+
+                //OJOOOOOOOOOO
+                plan.Vehiculo = cliente.Vehiculo;
+                plan.Cliente = cliente;
+                
+                _context.Add(plan);
+                  _context.SaveChanges();
+                return RedirectToAction(nameof(PlanRegistrado));
+            }
+            ViewData["ClienteId"] = new SelectList(_context.clientes, "Id", "Id", plan.ClienteId);
+            ViewData["VehiculoId"] = new SelectList(_context.vehiculos, "Id", "Id", plan.VehiculoId);
+            return View(plan);
+        }
+        
+
+        //GET: Plan/Registrado
+
+        public async Task<IActionResult> PlanRegistrado ()
+        {
+            return View();
+        }
+
 
         // GET: Plan/Edit/5
         public async Task<IActionResult> Edit(int? id)
@@ -168,7 +214,16 @@ namespace Concesionaria.Controllers
             var plan = await _context.planes.FindAsync(id);
             if (plan != null)
             {
-                _context.planes.Remove(plan);
+
+                //Se modifican a null ambos campos para evitar error por restriccion FK 
+      
+                Cliente cliente = _context.clientes.Find(plan.ClienteId);
+                cliente.Vehiculo = _context.vehiculos.Find(plan.VehiculoId);
+                cliente.Plan = null;
+                cliente.Vehiculo = null;
+                 
+
+                    _context.planes.Remove(plan);
             }
             
             await _context.SaveChangesAsync();
