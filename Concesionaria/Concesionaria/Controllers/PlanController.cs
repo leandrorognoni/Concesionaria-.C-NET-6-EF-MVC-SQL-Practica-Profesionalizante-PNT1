@@ -51,6 +51,30 @@ namespace Concesionaria.Controllers
             return View(plan);
         }
 
+        //GET: Plan/SeleccionPlan
+
+        public IActionResult SeleccionPlan(int? id)
+        {
+            TempData["idVehiculoSeleccionado"] = id; 
+            int precio = _context.vehiculos.Find(id).PrecioVenta;
+            TempData["precioVenta"] = precio;
+            ViewBag.vehiculoSelec = _context.vehiculos.Find(id);
+
+            return View();
+        }
+
+        //POST: Plan/SeleccionPlan
+        [HttpPost]
+        public IActionResult SeleccionPlan(int montoAbonado, Plazo plazo )
+        {
+            TempData["montoAbonado"] = montoAbonado;
+            TempData["plazo"] = plazo; 
+
+            int idVehic = (int) TempData["idVehiculoSeleccionado"];
+            return RedirectToAction("Seleccion", "Cliente", idVehic);
+        }
+
+
         // GET: Plan/Create
         public IActionResult Create()
         {
@@ -80,16 +104,7 @@ namespace Concesionaria.Controllers
             ViewData["VehiculoId"] = new SelectList(_context.vehiculos, "Id", "Id", plan.VehiculoId);
             return View(plan);
         }
-        /*
-                [HttpPost]
-                [ValidateAntiForgeryToken]
-                public IActionResult Create(int id, int vehi, int monto, int total , int cuo, Boolean fue, Plazo plazo )
-                {
-
-
-                    return View( );
-                }
-        */
+ 
      
          public   IActionResult  CreateSeleccion([Bind("ClienteId,VehiculoId,MontoAbonado,MontoTotal,CuotasRestantes,fueAprobado,PlazoEntrega")] Plan plan)
         {
@@ -97,20 +112,20 @@ namespace Concesionaria.Controllers
             plan.Vehiculo = _context.vehiculos.Find(plan.VehiculoId);
             
             Cliente cliente = _context.clientes.Find(plan.ClienteId);
-           
-            if (ModelState.IsValid)
+            bool existe = PlanExists(cliente.Id);
+
+
+            if (ModelState.IsValid   && !existe   )
             {
                 //Si es valido, ademas se asigna el vehiculo del cliente y el plan al cliente
-                 cliente.Vehiculo = _context.vehiculos.Find(plan.VehiculoId);
-                 cliente.Plan = plan;
-
-
-                //OJOOOOOOOOOO
+                cliente.Vehiculo = _context.vehiculos.Find(plan.VehiculoId);
+                cliente.Plan = plan;
                 plan.Vehiculo = cliente.Vehiculo;
                 plan.Cliente = cliente;
-                
+            
+
                 _context.Add(plan);
-                  _context.SaveChanges();
+                 _context.SaveChanges();
                 return RedirectToAction(nameof(PlanRegistrado));
             }
             ViewData["ClienteId"] = new SelectList(_context.clientes, "Id", "Id", plan.ClienteId);

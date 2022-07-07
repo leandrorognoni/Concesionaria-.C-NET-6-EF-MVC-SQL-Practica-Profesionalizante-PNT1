@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Concesionaria.Migrations
 {
     [DbContext(typeof(ConcesionariaContext))]
-    [Migration("20220704083153_Migracion")]
+    [Migration("20220707050739_Migracion")]
     partial class Migracion
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -160,9 +160,8 @@ namespace Concesionaria.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PrecioVenta")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PrecioVenta")
+                        .HasColumnType("int");
 
                     b.Property<string>("RutaImagen")
                         .IsRequired()

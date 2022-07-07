@@ -18,7 +18,7 @@ namespace Concesionaria.Models
         [Required(ErrorMessage = "Ingrese el precio")]
         [Display(Name = "Precio venta")]
         [Range(1, 9999999, ErrorMessage = "Ingrese un precio mayor a 0 ")]
-        public String PrecioVenta { get; set; }
+        public int PrecioVenta { get; set; }
 
         [Required(ErrorMessage = "Ingrese el color")]
         public String Color { get; set; }

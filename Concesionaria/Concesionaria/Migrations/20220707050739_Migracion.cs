@@ -17,7 +17,7 @@ namespace Concesionaria.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Marca = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Modelo = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PrecioVenta = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PrecioVenta = table.Column<int>(type: "int", nullable: false),
                     Color = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Año = table.Column<int>(type: "int", nullable: false),
                     Kilometros = table.Column<int>(type: "int", nullable: false),

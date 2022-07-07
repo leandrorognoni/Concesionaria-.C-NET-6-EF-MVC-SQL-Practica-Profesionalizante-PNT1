@@ -112,72 +112,48 @@ namespace Concesionaria.Controllers
 
         //GET: Cliente/Seleccion
 
-        public IActionResult Seleccion(int? id)
+        public IActionResult Seleccion()
         {
-            TempData["idVehiculoSeleccionado"] = id; 
-            return View();
+             return View();
         }
+
 
         //POST: Cliente/Seleccion
         [HttpPost]
         public IActionResult Seleccion(int dni, String contraseña)
         {
-            var i = 1;
-            var cliente = new Cliente();
-            Boolean existe = false;
+         
             var  idVehiculo =  TempData["idVehiculoSeleccionado"];
+            Vehiculo vehiculoSelec = _context.vehiculos.Find(idVehiculo); 
+            var cliente = buscarPorDni(dni, contraseña);
+            var plazo = TempData["plazo"];
 
-            while (i <= _context.clientes.Count() && !existe)
-            {
-                cliente = _context.clientes.Find(i);
-
-                if (cliente != null)
-                {
-
-                    if (cliente.Dni == dni && cliente.Contraseña.Equals(contraseña))
-                    {
-                        existe = true;
-
-                    }
-                    else
-                    {
-                        i++;
-                    }
-
-
-                }
-                else
-                {
-                    i++;
-                }
-
-            }
-
-
-
-            if (existe && cliente.Plan == null)
+             Plan plan = _context.planes.Find(cliente.Id);
+             
+            if (cliente.Apellido != null  && plan == null)
             {
               
                 
-                var routeValues = new { ClienteId = cliente.Id, VehiculoId = idVehiculo, MontoAbonado = 12, MontoTotal = 14, CuotasRestantes = 2, fueAprobado = false, PlazoEntrega = Plazo.CUOTA_12 };
+                var routeValues = new { ClienteId = cliente.Id, VehiculoId = idVehiculo, MontoAbonado = 12, MontoTotal = vehiculoSelec.PrecioVenta, CuotasRestantes = 2, fueAprobado = false, PlazoEntrega = plazo };
                 return  RedirectToAction("CreateSeleccion", "Plan", routeValues);
             }
-            else if(!existe)
+            else if(plan != null)
             {
-                ViewBag.Mensaje = "No fue encontrado el Dni o Contraseña";
+                ViewBag.Mensaje = "No se puede seleccionar mas de un plan de financiación para el mismo Dni";
 
-                return View();
             }
             else
             {
-                ViewBag.Mensaje = "El Dni Ingresado ya posee un plan de financiación";
-               
+                ViewBag.Mensaje = "No fue encontrado el Dni o Contraseña, por favor vuelve a intentar.";
 
             }
+
 
             return View();
         }
 
+
+    
 
         // GET: Cliente/Create
         public IActionResult Create()
@@ -304,5 +280,44 @@ namespace Concesionaria.Controllers
         {
           return (_context.clientes?.Any(e => e.Id == id)).GetValueOrDefault();
         }
+
+
+        private Cliente buscarPorDni(int dni, String contraseña)
+        {
+            var i = 1;
+            var cliente = new Cliente();
+            var clienteBuscado = new Cliente();
+            Boolean existe = false;
+
+            while (i <= _context.clientes.Count() && !existe)
+            {
+                cliente = _context.clientes.Find(i);
+
+                if (cliente != null)
+                {
+
+                    if (cliente.Dni == dni && cliente.Contraseña.Equals(contraseña))
+                    {
+                        clienteBuscado = cliente;
+                        existe = true;
+
+                    }
+                    else
+                    {
+                        i++;
+                    }
+
+
+                }
+                else
+                {
+                    i++;
+                }
+
+            }
+            return clienteBuscado;
+        }
+
+
     }
 }
