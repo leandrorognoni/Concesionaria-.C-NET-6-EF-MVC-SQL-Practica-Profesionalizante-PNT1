@@ -1,6 +1,5 @@
-# Concesionaria-.Csharp-NET-6-EF-MVC-SQL-Practica-Profesionalizante-PNT1---En-proceso
  
-<h1 align="center"> Concesionaria </h1>
+<h1 align="center"> Concesionaria - En proceso </h1>
 
 
 <p align="center"><img src="https://i.postimg.cc/XYm72YfN/Conesionaria-1.png"/></p> 
