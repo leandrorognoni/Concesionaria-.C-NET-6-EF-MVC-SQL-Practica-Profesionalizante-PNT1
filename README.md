@@ -9,9 +9,8 @@
 
 ## Descripción y contexto
 ---
-- La app consiste en un gestor de concesionaria, donde se muestran vehiculos disponibles para la venta y se ofrecen planes de financiación para usuarios que se registren, 
- lo que les permitirá consultar el estado de plan de pago de acuerdo al vehiculo seleccionado, los administradores (vendedores) podrán visualizar las facturaciones totales de 
- acuerdo a los tipos de planes adquiridos, actualizar datos de clientes, añadir nuevos vehiculos, realizar modificaciones y generar facturas.
+- La aplicación consiste en un gestor de concesionaria, donde se muestran vehiculos disponibles para comercializar y se ofrecen planes de financiación para usuarios que se registren, 
+ lo que les permitirá poder consultar el estado de plan de pago de acuerdo al vehiculo seleccionado, los administradores (vendedores) podrán visualizar las facturaciones totales por tipo de plan adquirido, además, actualizar datos de clientes, añadir nuevos vehiculos, realizar modificaciones y generar facturas.
 
 ## Guía de instalación
 ---
