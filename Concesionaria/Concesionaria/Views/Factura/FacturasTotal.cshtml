@@ -1,0 +1,72 @@
+﻿@model IEnumerable<Concesionaria.Models.Factura>
+
+@{
+    ViewData["Title"] = "Facturas totales";
+}
+ 
+
+<h1>Facturación total</h1>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Facturación total planes abonados en su totalidad:
+            </th> 
+        </tr>
+    </thead>
+    <tbody>
+@{double acum= 0; } 
+
+@foreach (var item in Model) {
+            if(item.MontoAbonado == item.MontoTotal)
+            {
+                acum += item.MontoTotal;
+            }   
+
+}
+
+         <tr>
+            <td>
+                 $ @acum
+            </td>
+             
+        </tr>
+    </tbody>
+
+ 
+</table>
+
+
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                Facturación total planes con cuotas pendientes:
+            </th> 
+        </tr>
+    </thead>
+    <tbody>
+@{double acumPendientes= 0; } 
+
+@foreach (var item in Model) {
+            if(item.MontoAbonado != item.MontoTotal)
+            {
+                acumPendientes += item.MontoAbonado;
+            }   
+
+}
+
+         <tr>
+            <td>
+                 $ @acumPendientes
+            </td>
+             
+        </tr>
+    </tbody>
+
+ 
+</table>
+
+      <a class="nav-link " style="margin-top:50px " asp-area="" asp-controller="Factura" asp-action="Index">Volver</a>

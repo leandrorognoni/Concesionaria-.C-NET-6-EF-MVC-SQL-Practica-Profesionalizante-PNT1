@@ -1,0 +1,89 @@
+html {
+  font-size: 14px;
+}
+
+@media (min-width: 768px) {
+  html {
+    font-size: 16px;
+  }
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+
+
+body {
+  margin-bottom: 60px;
+}
+
+#separacion1{ 
+    padding-right: 20px;
+}
+
+.sepLetras1{
+    letter-spacing:12px;
+    font-weight:bolder;
+}
+
+.sepLetras3 {
+    letter-spacing: 20px;
+    font-weight: bolder;
+}
+
+
+.separacionPadd {
+     padding-top:10px;
+     padding-bottom:10px;
+}
+
+.sepPlan{
+     margin-left:35px;
+     margin-right:35px;
+   
+    
+}
+
+.sepLetras2 {
+    letter-spacing: 4px;
+   
+}
+
+.sepLetras4 {
+    letter-spacing: 1px;
+}
+
+ .negrita{
+     font-weight:bold;
+ }
+
+.boton {
+    display: block;
+    width: 195px;
+    height: 35px;
+    background: #464646;
+    padding: 6px;
+    text-align: center;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    line-height: 25px;
+ 
+}
+
+.tiDesc {
+    font-size: 22px;
+    margin-top:15px;
+    font-weight:bold;
+}
+
+.detalleDesc {
+    font-size: 20px;
+}
+
+.margenPlan {
+    margin-top:35px;
+    margin-bottom:35px;
+}
